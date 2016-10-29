@@ -1,0 +1,22 @@
+{
+    "name" : "homebridge-sky-plus-hd",
+    "version" : "1.0.0",
+	"description": "Sky Plus HD Plugin for homebridge: https://github.com/shauncampbell/homebridge-sky-plus-hd",
+	"license": "Apache 2",
+	"author": "Shaun Campbell <shaun.campbell@me.com>",
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/shauncampbell/homebridge-sky-plus-hd.git"
+	},
+    "keywords" : [
+        "homebridge-plugin"
+    ],
+    "dependencies" : {
+        "sky-plus-hd": "shauncampbell/sky-plus-hd#v1-dev",
+		"sky-remote": "dalhundal/sky-remote"
+    },
+    "engines": {
+        "node": ">=0.12.0",
+        "homebridge": ">=0.2.0"
+    }
+}
