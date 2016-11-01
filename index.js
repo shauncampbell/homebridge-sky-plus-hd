@@ -1,7 +1,7 @@
 'use strict';
 
 var Accessory, Service, Characteristic;
-var skyBox, skyRemote;
+var skyBox, skyRemote, skyConfig;
 var SkyPlusHD = require('sky-plus-hd');
 var SkyRemote = require('sky-remote');
 
@@ -115,11 +115,23 @@ SkyPlusHDBoxAccessory.prototype = {
 		callback();
 	},
 	
+	findSkyBox: function(platform) {
+		platform.log('Searching for Sky Box ' + skyConfig.ip);
+		
+		SkyPlusHD.findBox(skyConfig.ip, skyConfig).then(function(box) {
+			skyBox = box;
+			skyRemote = new SkyRemote(skyConfig.ip);
+			platform.log('Connected to Sky box ' + skyBox.model + ' at ' + skyConfig.ip);
+		}).catch(function(err) {
+			platform.log('Failed to connect to Sky Box, will retry in 30s');
+			setTimeout(function() {
+				platform.findSkyBox(platform)
+			}, 30000);
+		});
+	},
+	
 	getServices: function() {
-		var config = {
-			region: this.config.region,
-			ip: this.config.ipAddress
-		};
+		
 		
 		var informationService;
 		
@@ -127,18 +139,11 @@ SkyPlusHDBoxAccessory.prototype = {
         			.setCharacteristic(Characteristic.Manufacturer, 'Sky')
         			.setCharacteristic(Characteristic.Model, 'Sky+HD Box')
         			.setCharacteristic(Characteristic.SerialNumber, '');	
-		
-		var findABox = SkyPlusHD.findBox(config.ip, config);
-		findABox.then(function(box) {
-			skyBox = box;
-			skyRemote = new SkyRemote(config.ip);
-			console.log(skyBox.model);
- 			console.log(skyBox.capacity);
-  			console.log(skyBox.software);
-  			console.log(skyBox.serial);
-			console.log(skyBox.currentState);
-			
-		});
+		skyConfig = {
+			region: this.config.region,
+			ip: this.config.ipAddress
+		};
+		this.findSkyBox(this);
 		
 		var switchService = new Service.Switch(this.name);
 

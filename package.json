@@ -13,7 +13,7 @@
     ],
     "dependencies" : {
         "sky-plus-hd": "shauncampbell/sky-plus-hd#v1-dev",
-		"sky-remote": "dalhundal/sky-remote"
+	"sky-remote": "dalhundal/sky-remote"
     },
     "engines": {
         "node": ">=0.12.0",
