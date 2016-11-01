@@ -1,6 +1,6 @@
 {
     "name" : "homebridge-sky-plus-hd",
-    "version" : "1.0.1",
+    "version" : "1.0.2",
 	"description": "Sky Plus HD Plugin for homebridge: https://github.com/shauncampbell/homebridge-sky-plus-hd",
 	"license": "Apache 2",
 	"author": "Shaun Campbell <shaun.campbell@me.com>",
